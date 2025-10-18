@@ -13,7 +13,7 @@ const authUser = async (req, res, next) => {
   } catch (error) {
     return res.json({success:false,message:"No authorized, Login again"});
   }
-};
+}; 
 
 export default authUser;
 
