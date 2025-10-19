@@ -19,14 +19,14 @@ const addToCart= async(req,res)=>{
             cartData[itemId][size]=1;
         }
         await userModel.findByIdAndUpdate(userId,{cartData});
-        res.json({success:true,message:"Product added to cart successfully",cartData:cartData});
+        res.json({success:true,message:"Product added to cart successfully"});
         
     } catch (error) {
         console.log(error);
         res.json({success:false,message:error.message});
     }
 }
-
+ 
 // update products in user cart
 const updateCart= async(req,res)=>{
     try {

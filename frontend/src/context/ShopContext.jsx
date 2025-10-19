@@ -24,10 +24,19 @@ const ShopContextProvider=(props)=>{
 
     const [products,setProducts]=useState([]);
 
-    const [token,setToken]=useState("");
-    useEffect(()=>{
-        localStorage.setItem('token',token)
-    },[token])
+    // Initialize token from localStorage
+const [token, setToken] = useState(() => {
+    return localStorage.getItem('token') || "";
+});
+
+// Update localStorage when token changes
+useEffect(() => {
+    if (token) {
+        localStorage.setItem('token', token);
+    } else {
+        localStorage.removeItem('token');
+    }
+}, [token]);
 
     const navigate=useNavigate();
 
@@ -54,14 +63,16 @@ const ShopContextProvider=(props)=>{
             cartData[itemId][size]=1;
         }
         setCartItems(cartData);
-        console.log("outside of token")
+
+        // console.log("outside of token")
         if(token){
-            console.log("inside of token")
+            // console.log("inside of token")
             try {
-                console.log("inside try block of token")
-                await axios.post(backendUrl + "/api/cart/add", {itemId, size}, {headers: {Authorization: `Bearer ${token}`}})
+                // console.log("inside try block of token")
+                await axios.post(backendUrl + "/api/cart/add", {itemId, size}, {headers: {token}})
             } catch (error) {
                 console.log(error);
+                toast.error("Error in adding to cart");
             }
         }
         else{
@@ -91,6 +102,14 @@ const ShopContextProvider=(props)=>{
         let cartData=structuredClone(cartItems);
         cartData[itemId][size]=quantity;
         setCartItems(cartData);
+        if(token){
+            try {
+                await axios.post(backendUrl + "/api/cart/update", {itemId, size, quantity}, {headers: {token}})
+            } catch (error) {
+                console.log(error);
+                toast.error("Error in updating cart");
+            }
+        }
     }
 
     const getCartAmount=()=>{
@@ -126,6 +145,21 @@ const ShopContextProvider=(props)=>{
             toast.error("Error in fetching products");
         }
   }
+
+  const getUserCart = async (token) => {
+    try {
+        const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
+        if (response.data.success) {
+          setCartItems(response.data.cartData);
+        } else {
+          toast.error("Error in fetching cart");
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Error in fetching cart");
+      }
+  }
+
     useEffect(()=>{
         getProductsdata();
     },[])
@@ -135,6 +169,12 @@ const ShopContextProvider=(props)=>{
             setToken(localStorage.getItem('token'));
         }
     },[])
+    useEffect(() => {
+    if (token) {
+        getUserCart(token);
+    }
+}, [token]);
+
 
 
     // Ye object banane ka purpose hai saare data (variables) aur functions ko ek bundle me collect karna.
