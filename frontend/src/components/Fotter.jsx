@@ -1,4 +1,5 @@
 import { assets } from "../assets/assets";
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -17,18 +18,21 @@ const Footer = () => {
         <div>
           <p className="text-xl font-medium mb-5">COMPANY</p>
           <ul className="flex flex-col gap-1 text-gray-600">
-            <li>Home</li>
-            <li>About Us</li>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/about">About Us</NavLink>
             <li>Delivery</li>
             <li>Privacy Policy</li>
           </ul>
         </div>
         <div>
             <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
-            <ul className="flex flex-col gap-1 text-gray-600">
+                        <ul className="flex flex-col gap-1 text-gray-600">
                 <li>+91 8052977911</li>
-                <li>subhamchoudhary283@gmail.com</li>
-
+                <li>
+                  <a href="mailto:subhamchoudhary283@gmail.com" className="hover:underline">
+                    subhamchoudhary283@gmail.com
+                  </a>
+                </li>
             </ul>
         </div>
 
