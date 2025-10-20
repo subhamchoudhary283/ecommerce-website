@@ -1,5 +1,4 @@
 // create a basic server
-import cors from "cors";
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
