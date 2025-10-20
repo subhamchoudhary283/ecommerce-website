@@ -1,4 +1,5 @@
 // create a basic server
+import cors from "cors";
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
@@ -32,6 +33,15 @@ app.use('/api/order', orderRouter);
 app.get('/',(req,res)=>{
   res.send('API Perfectly Working') 
 })
+
+app.use(
+  cors({
+    origin: "https://ecommerce-website-frontend-ecru.vercel.app", // your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 
 // start the express server
 app.listen(port,()=>console.log(`Server started on port ${port}`));
