@@ -61,7 +61,7 @@ const onsubmitHandler= async(event)=>{
                   navigate('/orders');
                  }
                  else{
-                  toast.error('Failed to place order. Please try again.');
+                  toast.error('Failed to place order. Please try again or Login again.');
                  }
           break;
 
