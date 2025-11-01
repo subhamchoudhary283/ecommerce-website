@@ -9,9 +9,9 @@ import productRouter from './routes/productRoute.js';
 import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
 
-
 // text app config
 const app= express();
+app.use(cors());
 // process -> environment variable 
 const port= process.env.PORT || 4000;
 connectDB()
@@ -33,13 +33,7 @@ app.get('/',(req,res)=>{
   res.send('API Perfectly Working') 
 })
 
-app.use(
-  cors({
-    origin: "https://ecommerce-website-frontend-ecru.vercel.app", // your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+
 
 
 // start the express server
