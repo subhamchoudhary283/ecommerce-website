@@ -9,6 +9,7 @@ import Cart from './pages/Cart'
 import Login from './pages/Login'
 import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
+import Myprofile from './pages/Myprofile'
 
 import NavBar from './components/Navbar'
 import Fotter from './components/Fotter'
@@ -36,6 +37,7 @@ const App = () => {
            <Route path='/login' element={<Login/>}/>    
            <Route path='/place-order' element={<PlaceOrder/>}/>    
            <Route path='/orders' element={<Orders/>}/>    
+           <Route path='/myprofile' element={<Myprofile/>}/>    
       </Routes>
       {/* Footer will display on all the pages at the bottom/}
       {/* <Footer/> */}
